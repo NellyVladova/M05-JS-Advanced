@@ -9,65 +9,30 @@ function solve(speed, area) {
 
     switch (area) {
         case 'motorway':
-            if (speed <= motorwayLimit) {
-                result = `Driving ${speed} km/h in a ${motorwayLimit} zone`;
-            } else {
-                difference = speed - motorwayLimit;
-                if (difference <= 20) {
-                    status = 'speeding';
-                } else if (difference <= 40) {
-                    status = 'excessive speeding';
-                } else {
-                    status = 'reckless driving';
-                }
-                result = `The speed is ${difference} km/h faster than the allowed speed of ${motorwayLimit} - ${status}`;
-            }
+            speedLimit = motorwayLimit;
             break;
         case 'interstate':
-            if (speed <= interstateLimit) {
-                result = `Driving ${speed} km/h in a ${interstateLimit} zone`;
-            } else {
-                difference = speed - interstateLimit;
-                if (difference <= 20) {
-                    status = 'speeding';
-                } else if (difference <= 40) {
-                    status = 'excessive speeding';
-                } else {
-                    status = 'reckless driving';
-                }
-                result = `The speed is ${difference} km/h faster than the allowed speed of ${interstateLimit} - ${status}`;
-            }
+            speedLimit = interstateLimit;
             break;
         case 'city':
-            if (speed <= cityLimit) {
-                result = `Driving ${speed} km/h in a ${cityLimit} zone`;
-            } else {
-                difference = speed - cityLimit;
-                if (difference <= 20) {
-                    status = 'speeding';
-                } else if (difference <= 40) {
-                    status = 'excessive speeding';
-                } else {
-                    status = 'reckless driving';
-                }
-                result = `The speed is ${difference} km/h faster than the allowed speed of ${cityLimit} - ${status}`;
-            }
+            speedLimit = cityLimit;
             break;
         case 'residential':
-            if (speed <= residentialLimit) {
-                result = `Driving ${speed} km/h in a ${residentialLimit} zone`;
-            } else {
-                difference = speed - residentialLimit;
-                if (difference <= 20) {
-                    status = 'speeding';
-                } else if (difference <= 40) {
-                    status = 'excessive speeding';
-                } else {
-                    status = 'reckless driving';
-                }
-                result = `The speed is ${difference} km/h faster than the allowed speed of ${residentialLimit} - ${status}`;
-            }
+            speedLimit = residentialLimit;
             break;
+    }
+    if (speed <= speedLimit) {
+        result = `Driving ${speed} km/h in a ${speedLimit} zone`;
+    } else {
+        difference = speed - speedLimit;
+        if (difference <= 20) {
+            status = 'speeding';
+        } else if (difference <= 40) {
+            status = 'excessive speeding';
+        } else {
+            status = 'reckless driving';
+        }
+        result = `The speed is ${difference} km/h faster than the allowed speed of ${speedLimit} - ${status}`;
     }
 
     console.log(result);
