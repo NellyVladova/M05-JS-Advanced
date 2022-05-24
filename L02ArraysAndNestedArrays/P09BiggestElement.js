@@ -1,8 +1,8 @@
 function solve(matrix){
-    let maxElement = matrix[0][0];
-    for(let i = 1; i < matrix.length; i++){
-        for(let j = 1; j < matrix[i].length; j++){
-            if(Number(matrix[i][j]) > Number(maxElement)){
+    let maxElement = Number.MIN_SAFE_INTEGER;
+    for(let i = 0; i < matrix.length; i++){
+        for(let j = 0; j < matrix[i].length; j++){
+            if(Number(matrix[i][j]) >= Number(maxElement)){
                 maxElement = matrix[i][j];
             }
         }
