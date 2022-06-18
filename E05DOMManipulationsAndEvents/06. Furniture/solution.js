@@ -45,7 +45,7 @@ function solve() {
     checkboxes.forEach(el => {
       let parent = el.parentElement.parentElement;
       let data = Array.from(parent.querySelectorAll('p'));
-      furnitureList.push[data[0].textContent];
+      furnitureList.push([data[0].textContent]);
       totalPrice += Number(data[1].textContent);
       decoration += Number(data[2].textContent);
     });
