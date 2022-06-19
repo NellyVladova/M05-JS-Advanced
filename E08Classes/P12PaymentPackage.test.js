@@ -1,8 +1,15 @@
 const PaymentPackage = require('./P12PaymentPackage');
-const { expect } = require('chai');
+const { expect, assert } = require('chai');
 
 describe("Tests for class PaymentPackage", () => {
     describe('Tests for the name', () => {
+        it('test for constructor', () => {
+            let instance = new PaymentPackage('Hello', 100);
+            assert.equal(instance._name, 'Hello', '1');
+            assert.equal(instance._value, 100, '3');
+            assert.equal(instance._VAT, 20, '4');
+            assert.equal(instance._active, true, '5');
+        });
         it('test for invalid name(empty string)', () => {
             expect(() => new PaymentPackage('', 1)).to.throw('Name must be a non-empty string');
         });
@@ -34,6 +41,10 @@ describe("Tests for class PaymentPackage", () => {
         });
         it('test for valid value', () => {
             expect(() => new PaymentPackage('Hello', 1)).not.to.throw('Value must be a non-negative number');
+        });
+        it('test for setting the value to null', () => {
+            let instance = new PaymentPackage('Hello', 100);
+            assert.doesNotThrow(() => { instance.value = 0 });
         });
     });
     describe('Tests for the vat', () => {
@@ -87,9 +98,10 @@ describe("Tests for class PaymentPackage", () => {
             let clazz = new PaymentPackage('Hello', 1);
             expect(() => clazz.active = false).not.to.throw('Active status must be a boolean');
         });
-    }); 
+    });
     describe('Tests for toString()', () => {
-        it('test with valid input, with default vat and active', () =>{
+
+        it('test with valid input and default vat and active', () => {
             let clazz = new PaymentPackage('Hello', 123);
             let output = [
                 `Package: Hello`,
@@ -98,25 +110,39 @@ describe("Tests for class PaymentPackage", () => {
             ]
             expect(clazz.toString()).to.equal(output.join('\n'));
         });
-        it('test with valid input, with default active', () =>{
+
+        it('test with valid input and only default active', () => {
             let clazz = new PaymentPackage('Hello', 123);
             clazz.VAT = 30;
             let output = [
                 `Package: Hello`,
                 `- Value (excl. VAT): 123`,
-                `- Value (VAT 20%): 147.6`
+                `- Value (VAT 30%): 159.9`
             ]
             expect(clazz.toString()).to.equal(output.join('\n'));
         });
-        it('test with valid input, with default vat and active(false)', () =>{
+
+        it('test with valid input and only default vat', () => {
             let clazz = new PaymentPackage('Hello', 123);
             clazz.active = false;
             let output = [
-                `Package: Hello`,
+                `Package: Hello (inactive)`,
                 `- Value (excl. VAT): 123`,
                 `- Value (VAT 20%): 147.6`
             ]
             expect(clazz.toString()).to.equal(output.join('\n'));
         });
+
+        it('test with valid input without default vat and active', () => {
+            let clazz = new PaymentPackage('Hello', 123);
+            clazz.VAT = 30;
+            clazz.active = false;
+            let output = [
+                `Package: Hello (inactive)`,
+                `- Value (excl. VAT): 123`,
+                `- Value (VAT 30%): 159.9`
+            ]
+            expect(clazz.toString()).to.equal(output.join('\n'));
+        });
     });
-})
+});
