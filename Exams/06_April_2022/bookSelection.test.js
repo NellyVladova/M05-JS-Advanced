@@ -24,21 +24,21 @@ describe('Tests for bookSelection', () => {
             assert.equal(bookSelection.isItAffordable(10, 20), `Book bought. You have 10$ left`);
         });
         it('Test for invalid price', () => {
-            expect(bookSelection.isItAffordable('asd', 20)).to.throw(Error);
+            expect(() => bookSelection.isItAffordable('asd', 20)).to.throw(Error);
         });
         it('Test for invalid budget', () => {
-            expect(bookSelection.isItAffordable(10, 'asd')).to.throw(Error);
+            expect(() => bookSelection.isItAffordable(10, 'asd')).to.throw(Error);
         });
     });
     describe('Tests for suitableTitles()', () => {
         it('Test for invalid books parameter', () => {
-            expect(bookSelection.suitableTitles('asd', 'asdas')).to.throw(Error);
+            expect(() => bookSelection.suitableTitles('asd', 'asdas')).to.throw(Error);
         });
         it('Test for invalid wantedGenre', () => {
-            expect(bookSelection.suitableTitles([], 1)).to.throw(Error);
+            expect(() => bookSelection.suitableTitles([], 1)).to.throw(Error);
         });
         it('Test for invalid books and wantedGenre', () => {
-            expect(bookSelection.suitableTitles('asd', 1)).to.throw(Error);
+            expect(() => bookSelection.suitableTitles('asd', 1)).to.throw(Error);
         });
         it('Test with valid parameters', () => {
             const expected = ['City of Brass', 'The night circus'];
