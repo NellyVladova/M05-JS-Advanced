@@ -1,5 +1,5 @@
 const rentCar = require('./rentCar');
-const { assert, expect } = require('chai');
+const { expect } = require('chai');
 
 describe('Tests for rentCar', () => {
     describe('Tests for searchCar()', () => {
