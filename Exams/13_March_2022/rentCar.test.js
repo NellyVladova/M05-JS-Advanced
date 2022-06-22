@@ -19,7 +19,7 @@ describe('Tests for rentCar', () => {
             expect(expected).to.be.equal(result);
         });
         it('test with no such model in the shop', () => {
-            expect(() => rentCar.searchCar([], "Audi")).to.throw(Error);
+            expect(() => rentCar.searchCar(['Toyota', 'Audi', 'BMW', 'Volkswagen'], "Suzuki")).to.throw(Error);
         });
     });
     describe('Tests for calculatePriceOfCar()', () => {
@@ -33,10 +33,10 @@ describe('Tests for rentCar', () => {
             expect(() => rentCar.calculatePriceOfCar(1, 'asd')).to.throw(Error);
         });
         it('test with valid params', () => {
-            const expected = `You choose Audi and it will cost $3600!`;
-            const result = rentCar.calculatePriceOfCar('Audi', 100);
-
-            assert.equal(expect, result);
+            expect(() => rentCar.calculatePriceOfCar('Audi', 100)).not.to.throw(Error);
+        });
+        it('test with valid params', () => {
+            expect(rentCar.calculatePriceOfCar('Audi', 10)).to.equal(`You choose Audi and it will cost $360!`);
         });
         it('test with no such model in the shop', () => {
             expect(() => rentCar.calculatePriceOfCar('Suzuki', 100)).to.throw(Error);
@@ -56,22 +56,28 @@ describe('Tests for rentCar', () => {
             expect(() => rentCar.checkBudget('asd', 'asd', 10)).to.throw(Error);
         });
         it('test with invalid second and third params', () => {
-            expect(() => rentCar.checkBudget(10, 'asd','asd')).to.throw(Error);
+            expect(() => rentCar.checkBudget(10, 'asd', 'asd')).to.throw(Error);
         });
         it('test with invalid all params', () => {
             expect(() => rentCar.checkBudget('asd', 'asd', 'asd')).to.throw(Error);
         });
-        it('test with valid params and successfully rented car', () => {
+        it('test with valid params and successfully rented car(with bigger budget than the cost)', () => {
             const expected = `You rent a car!`;
             const result = rentCar.checkBudget(10, 5, 100);
 
-            assert.equal(expect, result);
+            expect(result).to.equal(expected);
+        });
+        it('test with valid params and successfully rented car(with budget which is equal to the cost)', () => {
+            const expected = `You rent a car!`;
+            const result = rentCar.checkBudget(10, 10, 100);
+
+            expect(result).to.equal(expected);
         });
         it('test with valid params, but needed more money', () => {
             const expected = 'You need a bigger budget!';
             const result = rentCar.checkBudget(10, 20, 100);
 
-            assert.equal(expect, result);
+            expect(result).to.equal(expected);
         });
     });
 });
