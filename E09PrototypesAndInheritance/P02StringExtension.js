@@ -24,14 +24,15 @@
             let lastIndex = this.toString().substring(0, n - 2).lastIndexOf(' ');
             if (lastIndex == -1) {
                 return this.toString().substring(0, n - 3) + '...';
+            } else {
+                return this.toString().substring(0, lastIndex) + '...';
             }
-            return this.toString().substring(0, lastIndex) + '...';
         }
     }
     String.format = function (string, ...params) {
-        for(let i = 0; i < string.length; i++){
-            string = string.replace(`{${i}}`, params[i]);
-        }
+        params.forEach((placeholder, index) => {
+            string = string.replace(`{${index}}`, placeholder)
+        });
         return string;
     }
 })();
